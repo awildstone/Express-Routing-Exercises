@@ -16,7 +16,17 @@ class EmptyInput extends Error {
     }
 }
 
+class NotFound extends Error {
+    constructor(msg, status) {
+        super();
+        this.msg = msg;
+        this.status = status;
+        console.error(this.stack);
+    }
+}
+
 module.exports = {
     NaNError,
-    EmptyInput
+    EmptyInput,
+    NotFound
 }

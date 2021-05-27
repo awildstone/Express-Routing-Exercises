@@ -51,7 +51,7 @@ function countFrequency(arr) {
 function findMode(arr) {
     let counts = countFrequency(arr);
     let keys = Object.keys(counts);
-    let highestVal = Math.max.apply(null, keys.map(x => counts[x]))
+    let highestVal = Math.max.apply(null, keys.map(x => counts[x]));
     //if the count is equal to the highest value, add the key to an array of modes (result)
     let mode = keys.reduce((result, key) => { if (counts[key] === highestVal){ result.push(+key); } return result; }, []);
     //if the array is only 1 item, return the value, else return array of multiple mode values

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const { NaNError, EmptyInput } = require('./errors');
+const { NaNError, EmptyInput, NotFound } = require('./errors');
 const { convertStringToNum, findMean, findMedian, findMode } = require('./helper');
 
 app.get('/', (req, res) => {
@@ -56,7 +56,14 @@ app.get('/mode', function(req, res, next) {
     } 
 });
 
-/** error handler */
+/** Generic 404 error handler. */
+app.use(function(req, res, next) {
+    //create an error insannce and pass it to the error handler (next middleware).
+    const err = new NotFound('404 Not Found.', 404);
+    next(err);
+});
+
+/** Specific error handler. */
 app.use(function(err, req, res, next) {
     let message = err.msg;
     let status = err.status || 500;
@@ -65,5 +72,5 @@ app.use(function(err, req, res, next) {
 
 /** run server */
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Mean, Median, Mode app listening at http://localhost:${port}`)
   });
